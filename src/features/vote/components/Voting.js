@@ -143,7 +143,7 @@ export default function Voting() {
           autoClose: 5000,
           isLoading: false,
         });
-        dispatch(setVoteRoute("Receipt"));
+        dispatch(setVoteRoute("Receip"));
         return;
       } else {
         toast.update(toastId, {
