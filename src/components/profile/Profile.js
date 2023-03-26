@@ -29,20 +29,12 @@ const Profile = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-  const lengthChecker = (value) => {
-    if (value.length > 2) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const handleUpdateUser = async () => {
     if (
-      lengthChecker(name) === false &&
-      lengthChecker(email) === false &&
-      lengthChecker(password) === false &&
-      lengthChecker(oldPassword) === false
+      name.length < 3 &&
+      email.length < 3 &&
+      password.length < 3 &&
+      oldPassword.length < 3
     ) {
       toast.warn("input length must be greater than three(3)");
       return;
