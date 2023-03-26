@@ -144,7 +144,7 @@ const Profile = () => {
                 <p className="profile__card__form__input__label">Username</p>
                 <input
                   type="text"
-                  onClick={(e) => {
+                  onChange={(e) => {
                     setName(e.target.value);
                   }}
                 />
@@ -153,7 +153,7 @@ const Profile = () => {
                 <p className="profile__card__form__input__label">Email</p>
                 <input
                   type="text"
-                  onClick={(e) => {
+                  onChange={(e) => {
                     setEmail(e.target.value);
                   }}
                 />
@@ -162,7 +162,7 @@ const Profile = () => {
                 <p className="profile__card__form__input__label">Password</p>
                 <input
                   type="text"
-                  onClick={(e) => {
+                  onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                 />
@@ -173,7 +173,7 @@ const Profile = () => {
                 </p>
                 <input
                   type="text"
-                  onClick={(e) => {
+                  onChange={(e) => {
                     setOldPassword(e.target.value);
                   }}
                 />

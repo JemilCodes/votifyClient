@@ -1,7 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+const deployment = process.env.NODE_ENV;
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://votifyapi-q9zc.onrender.com/votify/api/v1",
+  baseUrl:
+    deployment === "production"
+      ? "https://votifyapi-q9zc.onrender.com/votify/api/v1"
+      : process.env.REACT_APP_DOMAIN,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
