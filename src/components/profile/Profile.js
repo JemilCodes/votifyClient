@@ -30,26 +30,26 @@ const Profile = () => {
   );
 
   const handleUpdateUser = async () => {
-    if (
-      name.length < 3 &&
-      email.length < 3 &&
-      password.length < 3 &&
-      oldPassword.length < 3
-    ) {
-      toast.warn("input length must be greater than three(3)");
-      return;
-    }
     const toastId = toast.loading("processing...");
     const response = await updateUser({
-      ...(name !== "" && { name }),
-      ...(email !== "" && { email }),
-      ...(oldPassword !== "" && { oldPassword }),
-      ...(password !== "" && { newPassword: password }),
+      ...(name.length > 3 && { name }),
+      ...(email.length > 3 && { email }),
+      ...(oldPassword.length > 3 && { oldPassword }),
+      ...(password.length > 3 && { newPassword: password }),
     }).unwrap();
     if (response === "serverError") {
       toast.update(toastId, {
         type: "error",
         render: "server error, try again later",
+        isLoading: false,
+        autoClose: 5000,
+      });
+      return;
+    }
+    if (response === "emptyFields") {
+      toast.update(toastId, {
+        type: "error",
+        render: "input fields must be greater than three (3)",
         isLoading: false,
         autoClose: 5000,
       });
@@ -71,6 +71,9 @@ const Profile = () => {
         isLoading: false,
         autoClose: 5000,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
     return;
   };
