@@ -41,7 +41,7 @@ const Profile = () => {
     if (
       !lengthChecker(name) &&
       !lengthChecker(email) &&
-      !lengthChecker(newPassword) &&
+      !lengthChecker(password) &&
       !lengthChecker(oldPassword)
     ) {
       toast.warn("input length must be greater than three(3)");
