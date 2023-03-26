@@ -32,10 +32,10 @@ const Profile = () => {
   const handleUpdateUser = async () => {
     const toastId = toast.loading("processing...");
     const response = await updateUser({
-      ...(name.length > 3 && { name }),
-      ...(email.length > 3 && { email }),
-      ...(oldPassword.length > 3 && { oldPassword }),
-      ...(password.length > 3 && { newPassword: password }),
+      ...(name.length > 2 && { name }),
+      ...(email.length > 2 && { email }),
+      ...(oldPassword.length > 2 && { oldPassword }),
+      ...(password.length > 2 && { newPassword: password }),
     }).unwrap();
     if (response === "serverError") {
       toast.update(toastId, {
@@ -49,7 +49,7 @@ const Profile = () => {
     if (response === "emptyFields") {
       toast.update(toastId, {
         type: "error",
-        render: "input fields must be greater than three (3)",
+        render: "input fields must be greater than two (2)",
         isLoading: false,
         autoClose: 5000,
       });
