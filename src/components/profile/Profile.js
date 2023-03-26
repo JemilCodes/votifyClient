@@ -16,10 +16,10 @@ import { useUpdateUserMutation } from "../../features/user/userApiSlice";
 import { toast } from "react-toastify";
 
 const Profile = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [oldPassword, setOldPassword] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const [deleteUser] = useDeleteUserMutation();
