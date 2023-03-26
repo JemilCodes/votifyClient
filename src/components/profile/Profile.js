@@ -13,11 +13,12 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteUserMutation } from "../../features/user/userApiSlice";
 
 import { useUpdateUserMutation } from "../../features/user/userApiSlice";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [comfirm, setComfirm] = useState();
+  const [oldPassword, setOldPassword] = useState();
   const [password, setPassword] = useState();
 
   const navigate = useNavigate();
@@ -28,17 +29,57 @@ const Profile = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-  const handleUpdateUser = async () => {
-    const response = await updateUser({
-      name,
-      email,
-      comfirm,
-      password,
-    }).unwrap();
-    if (response === "incorrect password") {
-      console.log(response);
+  const lengthChecker = (value) => {
+    if (value.length > 2) {
+      return true;
+    } else {
+      return false;
     }
-    console.log(response);
+  };
+
+  const handleUpdateUser = async () => {
+    if (
+      !lengthChecker(name) &&
+      !lengthChecker(email) &&
+      !lengthChecker(newPassword) &&
+      !lengthChecker(oldPassword)
+    ) {
+      toast.warn("input length must be greater than three(3)");
+      return;
+    }
+    const toastId = toast.loading("processing...");
+    const response = await updateUser({
+      ...(name !== "" && { name }),
+      ...(email !== "" && { email }),
+      ...(oldPassword !== "" && { oldPassword }),
+      ...(password !== "" && { newPassword: password }),
+    }).unwrap();
+    if (response === "serverError") {
+      toast.update(toastId, {
+        type: "error",
+        render: "server error, try again later",
+        isLoading: false,
+        autoClose: 5000,
+      });
+      return;
+    }
+    if (response === "incorrect password") {
+      toast.update(toastId, {
+        type: "error",
+        render: "incorrect old password",
+        isLoading: false,
+        autoClose: 5000,
+      });
+    }
+
+    if (response.name) {
+      toast.update(toastId, {
+        type: "success",
+        render: "successful",
+        isLoading: false,
+        autoClose: 5000,
+      });
+    }
     return;
   };
 
@@ -133,12 +174,12 @@ const Profile = () => {
               </div>
               <div className="profile__card__form__input">
                 <p className="profile__card__form__input__label">
-                  Comfirm Password
+                  Old Password
                 </p>
                 <input
                   type="text"
                   onClick={(e) => {
-                    setComfirm(e.target.value);
+                    setOldPassword(e.target.value);
                   }}
                 />
               </div>
