@@ -39,10 +39,10 @@ const Profile = () => {
 
   const handleUpdateUser = async () => {
     if (
-      !lengthChecker(name) &&
-      !lengthChecker(email) &&
-      !lengthChecker(password) &&
-      !lengthChecker(oldPassword)
+      lengthChecker(name) === false &&
+      lengthChecker(email) === false &&
+      lengthChecker(password) === false &&
+      lengthChecker(oldPassword) === false
     ) {
       toast.warn("input length must be greater than three(3)");
       return;
