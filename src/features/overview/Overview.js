@@ -16,11 +16,14 @@ import { MdBallot } from "react-icons/md";
 import { HiClipboardDocument } from "react-icons/hi2";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+import Confetti from "react-confetti";
+
 import CountdownTimer from "../../components/countDown/countDown";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 
 export default function Launch() {
+  const [confetti, setConfetti] = useState(false);
   const { data: electionResult } = useGetResultsQuery(
     {},
     { refetchOnMountOrArgChange: true }
@@ -38,18 +41,25 @@ export default function Launch() {
     { refetchOnMountOrArgChange: true }
   );
 
-  const timestampDayjs = dayjs(singleElectionData?.endDate);
-  const nowDayjs = dayjs();
-
   const [copied, setCopied] = useState("");
 
   useEffect(() => {
-    if (
-      singleElectionData?.status !== "completed" &&
-      singleElectionData?.endDate &&
-      timestampDayjs.isBefore(nowDayjs)
-    ) {
-      const endElection = async () => {
+    const endElection = async () => {
+      const nowResponse = await fetch(
+        `${process.env.REACT_APP_DOMAIN}/election/single/get`,
+        {
+          credentials: "include",
+        }
+      );
+      const nowElectionData = await nowResponse.json();
+      const timestampDayjs = dayjs(nowElectionData?.endDate);
+      const nowDayjs = dayjs();
+
+      if (
+        nowElectionData?.status !== "completed" &&
+        nowElectionData?.endDate &&
+        timestampDayjs.isBefore(nowDayjs)
+      ) {
         await fetch(`${process.env.REACT_APP_DOMAIN}/elect/update`, {
           method: "PATCH",
           credentials: "include",
@@ -58,14 +68,15 @@ export default function Launch() {
             status: "completed",
           }),
         }).then(() => {
+          setConfetti(true);
           setTimeout(() => {
             window.location.reload();
-          }, 2000);
+          }, 5000);
           toast.success("This election has ended!!");
         });
-      };
-      endElection();
-    }
+      }
+    };
+    endElection();
   }, []);
 
   const ballotEntities = ballotData?.entities;
@@ -158,13 +169,13 @@ export default function Launch() {
   };
 
   const changeElectionState = async (state, message) => {
-    console.log(state);
     await fetch(`${process.env.REACT_APP_DOMAIN}/elect/update`, {
       method: "PATCH",
       credentials: "include",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify({
         status: state,
+        ...(state === "completed" && { endDate: 1680134400000 }),
       }),
     }).then(() => {
       setTimeout(() => {
@@ -176,6 +187,7 @@ export default function Launch() {
 
   return (
     <>
+      {confetti && <Confetti />}
       <section className="admin__main__section2">
         <div className="admin__main__section2__card1">
           <div className="admin__main__section2__card1__info">
@@ -284,6 +296,14 @@ export default function Launch() {
             onClick={() => changeElectionState("paused", "paused")}
           >
             Pause Election
+          </button>
+        )}
+        {singleElectionData?.status === "running" && (
+          <button
+            style={{ backgroundColor: "red" }}
+            onClick={() => changeElectionState("stopped", "completed")}
+          >
+            End Election
           </button>
         )}
         {singleElectionData?.status === "paused" && (

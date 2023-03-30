@@ -13,6 +13,9 @@ import Email from "./component/email/Email";
 import General from "./component/general/General";
 
 const Settings = () => {
+  const [dropdown, setDropDown] = useState({
+    Logo: AiFillHome,
+  });
   const { settingsRoute } = useSelector(settingsState);
   const dispatch = useDispatch();
   const asideLinks = [
@@ -20,6 +23,7 @@ const Settings = () => {
       name: "General",
       Logo: AiFillHome,
       action: () => {
+        setDropDown({ Logo: AiFillHome });
         dispatch(setSettingsRoute("General"));
       },
     },
@@ -27,16 +31,18 @@ const Settings = () => {
       name: "Email",
       Logo: FaAddressCard,
       action: () => {
+        setDropDown({ Logo: FaAddressCard });
         dispatch(setSettingsRoute("Email"));
       },
     },
   ];
+
   const [isMobile, setIsMobile] = useState(false);
 
   const nonActiveLinks = asideLinks.filter(({ name }) => {
     return settingsRoute !== name;
   });
-
+  const AsideLogo = dropdown.Logo;
   return (
     <div className="settings">
       <div
@@ -54,7 +60,7 @@ const Settings = () => {
           }`}
         >
           <div className="settings__aside__mobile__header__info">
-            <FaAddressCard className="settings__aside__mobile__header__info__logo" />
+            <AsideLogo className="settings__aside__mobile__header__info__logo" />
             <p className="settings__aside__mobile__header__info__text">
               {settingsRoute}
             </p>
