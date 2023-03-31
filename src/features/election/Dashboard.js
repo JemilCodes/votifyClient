@@ -131,7 +131,6 @@ export default function Dashboard() {
     const endDate = new Date(currentELection?.endDate).toLocaleDateString(
       "en-US"
     );
-    console.log(currentELection?._id, currentELection?.title);
     return (
       <motion.div
         whileHover={{ scale: [1, 1.02] }}

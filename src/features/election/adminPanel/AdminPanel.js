@@ -43,6 +43,7 @@ import { useNavigate } from "react-router-dom";
 import AnalyticsComp from "../../analytics/Analytics";
 import { toast } from "react-toastify";
 import { Oval, ThreeDots } from "react-loader-spinner";
+import { BsThreeDots } from "react-icons/bs";
 
 const AdminPanel = () => {
   const [pending, setPending] = useState("");
@@ -406,22 +407,38 @@ const AdminPanel = () => {
             <div className="admin__main__header__status">{electionStatus}</div>
           </div>
           <div className="admin__main__header__section2">
-            {ballotRoute === "home" && electionRoute === "Ballots" && (
-              <button
-                className="header__btn"
-                onClick={() => dispatch(setBallotRoute("createBallot"))}
-              >
-                Add Ballot
-              </button>
-            )}
-            {electionRoute === "Add Voters" && (
-              <button
-                className="header__btn"
-                onClick={() => dispatch(setAddVoterRoute("addVoter"))}
-              >
-                Add Voters
-              </button>
-            )}
+            <BsThreeDots id="headerMenu" />
+            <Tooltip
+              delayHide={1500}
+              anchorId="headerMenu"
+              place="left"
+              clickable
+              className="admin__main__header__profile__tooltip"
+              style={{
+                color: "#5520b7",
+                backgroundColor: "white",
+                zIndex: "100",
+              }}
+            >
+              <>
+                {ballotRoute === "home" && electionRoute === "Ballots" && (
+                  <div
+                    className="admin__main__header__profile__tooltip__data"
+                    onClick={() => dispatch(setBallotRoute("createBallot"))}
+                  >
+                    Add Ballot
+                  </div>
+                )}
+                {electionRoute === "Add Voters" && (
+                  <div
+                    className="admin__main__header__profile__tooltip__data"
+                    onClick={() => dispatch(setAddVoterRoute("addVoter"))}
+                  >
+                    Add Voters
+                  </div>
+                )}
+              </>
+            </Tooltip>
             <div className="admin__main__header__section2__profile">
               <img
                 className="navbar__profile"
