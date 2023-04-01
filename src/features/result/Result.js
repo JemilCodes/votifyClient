@@ -102,7 +102,10 @@ export default function Result() {
                     <div className="result-ballot-option-id">
                       {option?.imgUrl && (
                         <img
-                          style={{ border: "2px solid var(--bg-grey-300)" }}
+                          style={{
+                            border: "2px solid var(--bg-grey-300)",
+                            objectFit: "cover",
+                          }}
                           src={option?.imgUrl}
                           alt={option?.name}
                           className="result-ballot-option-id__logo"

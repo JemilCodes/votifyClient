@@ -200,7 +200,10 @@ export default function Voting() {
                         <div className="option-single-section1">
                           {option?.imgUrl && (
                             <img
-                              style={{ border: "2px solid var(--bg-grey-300)" }}
+                              style={{
+                                border: "2px solid var(--bg-grey-300)",
+                                objectFit: "cover",
+                              }}
                               src={option?.imgUrl}
                               alt={option?.name}
                               className="option-single-section1-logo"
