@@ -72,7 +72,7 @@ export default function Vote() {
       navigate("login-vote");
     } else {
       toast.update(toastId, {
-        render: "server error, try again later",
+        render: "This election cant be accessed at this moment!!",
         type: "error",
         autoClose: 5000,
         isLoading: false,

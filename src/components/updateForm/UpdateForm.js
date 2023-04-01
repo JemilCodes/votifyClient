@@ -299,7 +299,7 @@ export default function General() {
       {/* <p className="">Title</p> */}
       <input
         id="Esgtc"
-        placeholder="Election title"
+        placeholder="title"
         onChange={(e) => setTitle(e.target.value)}
       />
       {/* <p>Textarea</p> */}
@@ -315,7 +315,7 @@ export default function General() {
       )}
       <textarea
         id="Esgcd"
-        placeholder="Election description"
+        placeholder="description"
         onChange={(e) => setTextArea(e.target.value)}
       />
       <button onClick={handleBallot}>Save</button>

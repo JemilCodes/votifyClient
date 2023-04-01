@@ -11,20 +11,15 @@ import { useSendAllMailMutation } from "../settings/component/email/emailApiSlic
 import { useGetBallotsQuery } from "../ballot/ballotApiSlice";
 
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { setElectionRoute } from "../election/electionSlice";
 
 import Loader from "../../components/loader/Loader";
 
 export default function Launch() {
   const [pending, setPending] = useState("");
-  const dispatch = useDispatch();
   const { data: emailTemplateData } = useGetTemplateQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
-
-  console.log(emailTemplateData);
 
   const { data: electionData } = useGetSingleElectionQuery(
     {},
@@ -60,9 +55,9 @@ export default function Launch() {
       return toast.warn("Fill in Your Invite Template");
     }
     if (
-      emailTemplateData?.inviteBody?.length > 1 ||
-      emailTemplateData?.inviteFromName?.length > 1 ||
-      emailTemplateData?.inviteSubject?.length > 1
+      emailTemplateData?.inviteBody?.length < 1 ||
+      emailTemplateData?.inviteFromName?.length < 1 ||
+      emailTemplateData?.inviteSubject?.length < 1
     ) {
       return toast.warn("Fill in Your Invite Template");
     }

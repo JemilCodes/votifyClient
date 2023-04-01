@@ -210,7 +210,6 @@ const VoteDashboard = () => {
           </div>
         </motion.header>
         {voteRoute === "Vote" &&
-          electionData?.status === "running" &&
           voted !== "alreadyVoted" &&
           voted !== "serverError" && <Voting />}
         {voteRoute === "Live Result" && <Result />}

@@ -301,7 +301,7 @@ export default function Launch() {
         {singleElectionData?.status === "running" && (
           <button
             style={{ backgroundColor: "red" }}
-            onClick={() => changeElectionState("stopped", "completed")}
+            onClick={() => changeElectionState("completed", "stopped")}
           >
             End Election
           </button>
