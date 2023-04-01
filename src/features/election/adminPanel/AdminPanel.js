@@ -411,7 +411,7 @@ const AdminPanel = () => {
             <Tooltip
               delayHide={1500}
               anchorId="headerMenu"
-              place="left"
+              place="bottom"
               clickable
               className="admin__main__header__profile__tooltip"
               style={{
@@ -445,7 +445,10 @@ const AdminPanel = () => {
                 alt="pic"
                 src={uploadData}
                 id="profile-tooltip"
-                style={{ display: uploadData ? "block" : "none" }}
+                style={{
+                  display: uploadData ? "block" : "none",
+                  objectFit: "cover",
+                }}
               />
               <div
                 id="profile-tooltip2"

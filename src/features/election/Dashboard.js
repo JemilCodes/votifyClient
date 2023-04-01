@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
+import { ThreeDots } from "react-loader-spinner";
+
 // COMPONENT IMPORT
 import SearchBar from "../../components/searchBar/SearchBar";
 import Navbar from "../../components/navbar/Navbar";
@@ -29,6 +31,7 @@ export default function Dashboard() {
 
   const [dropDown, setDropDown] = useState("title");
   const [search, setSearch] = useState("");
+  const [mountElection, setMountElection] = useState(true);
   const selectRef = useRef();
 
   const [singleElection] = useSingleElectionMutation();
@@ -53,6 +56,7 @@ export default function Dashboard() {
 
   // FUNCTIONS
   const handleElection = async (electionData) => {
+    setMountElection(false);
     const fetchedElectionData = await singleElection(electionData).unwrap();
     if (fetchedElectionData === "serverError") {
       toast.error("server error, try again later");
@@ -66,6 +70,7 @@ export default function Dashboard() {
     }
     dispatch(setElectionData(fetchedElectionData));
     dispatch(setElectionRoute("overview"));
+    setMountElection(true);
     navigate("/dash/election");
   };
   const handleDeleteAllElection = async () => {
@@ -226,7 +231,21 @@ export default function Dashboard() {
             </select>
           </div>
         </div>
-        {MappedElection}
+        {mountElection && MappedElection}
+        {!mountElection && (
+          <div style={{ position: "absolute", top: "45vh", right: "45vw" }}>
+            <ThreeDots
+              height={100}
+              width={100}
+              radius={50}
+              color={"var(--color-primary)"}
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{ marginLeft: "5px", marginTop: "20px" }}
+              wrapperClassName=""
+              visible={true}
+            />
+          </div>
+        )}
         <p>
           showing {newIds.length || 0} of {electionData?.ids?.length || 0}
         </p>

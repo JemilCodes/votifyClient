@@ -84,7 +84,10 @@ export default function Navbar() {
               alt="pic"
               src={uploadData}
               id="profile-tooltip"
-              style={{ display: uploadData ? "block" : "none" }}
+              style={{
+                display: uploadData ? "block" : "none",
+                objectFit: "cover",
+              }}
             />
             <BiUserCircle
               id="profile-tooltip2"

@@ -71,7 +71,7 @@ export default function Launch() {
           setConfetti(true);
           setTimeout(() => {
             window.location.reload();
-          }, 5000);
+          }, 10000);
           toast.success("This election has ended!!");
         });
       }
