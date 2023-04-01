@@ -19,6 +19,8 @@ import { store } from "./app/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
+import Footer from "./components/footer/Footer";
+
 // import { electionApiSlice } from "./features/election/electionApiSlice";
 
 // store.dispatch(electionApiSlice.endpoints.getElections.initiate());
@@ -46,6 +48,7 @@ root.render(
                   pauseOnHover
                   theme="light"
                 />
+                <Footer />
               </div>
             }
           />

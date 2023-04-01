@@ -4,7 +4,6 @@ import Stack from "./Stack";
 import "./public.scss";
 import { stacksData } from "../../data/data";
 import Navbar from "../navbar/Navbar";
-import Footer from "../footer/Footer";
 
 // Third Party Import
 
@@ -19,7 +18,6 @@ export default function Home() {
         <Header />
         {stackedElemet}
       </div>
-      <Footer />
     </>
   );
 }

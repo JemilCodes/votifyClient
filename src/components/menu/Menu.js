@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Navbar from "../navbar/Navbar";
-import Footer from "../../components/footer/Footer";
-
 import { useGetUserQuery } from "../../features/user/userApiSlice";
 import { useGetElectionsQuery } from "../../features/election/electionApiSlice";
 
@@ -109,7 +107,6 @@ export default function Menu() {
             );
           })}
         </motion.div>
-        <Footer />
       </div>
     </>
   );
