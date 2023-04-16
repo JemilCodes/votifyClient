@@ -70,9 +70,9 @@ export default function Navbar() {
       </div>
       <div className="NavBarRoute">
         {location.pathname === "/" && (
-          <button className="button" onClick={() => navigate("/form")}>
-            Get Started
-          </button>
+          <a href="https://www.youtube.com/watch?v=HtexM1wXY_I&t=74s">
+            <button className="button">How it Works</button>
+          </a>
         )}
         {(location.pathname === "/dash" ||
           location.pathname === "/dash/vote" ||
